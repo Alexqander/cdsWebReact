@@ -1,0 +1,239 @@
+
+:root{
+    --fondo-cards:#0368C0;
+    --fuentePrincipal:'Roboto regular', sans-serif;
+    --fuenteSecundaria:'Poppins', sans-serif;
+}
+
+
+
+.navBackground{
+    background-image: linear-gradient( 96.5deg,  rgba(39,103,187,1) 10.4%, rgba(16,72,144,1) 87.7% );
+}
+.menu{
+    color: white;
+    font-size: 20px;
+}
+.img-cds{
+    width:100%;
+    height:auto;
+}
+.logo-cds{
+    width:150px;
+    height:150px;
+}
+.img-cards{
+    width: 165px;
+    height: 165px; 
+}
+.cards-info{
+    background-color:var(--fondo-cards) ;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    color: white;
+    height:220px;
+    width: 95%;
+    border-radius:35px;
+    border: none;
+}
+.cards-convo{
+    background-color:var(--fondo-cards) ;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    color: white;
+    height:700px;
+    width: 95%;
+    border-radius:35px;
+    border: none;
+    margin-left:45px;
+}
+.img-convo{
+    width: 550px;
+    height: auto;
+    
+}
+.titulo-convo{
+    font-size:50px;
+    text-align:start;
+}
+.info-convo{
+    font-size:25px;
+    
+}
+.footer-info{
+    background-color:var(--fondo-cards) ;
+    color: white;
+    height:300px;
+    width: 100%;
+    border-radius:5px;
+    border: none;
+    margin-top:100px;
+    text-decoration: none;
+}
+.lgos{
+    color: white;
+    text-decoration: none;
+}
+.lgos:hover{
+    color: gray;
+}
+.social-logos{
+    width: 40px;
+    height: 40px;
+    margin:10px ;
+}
+
+
+
+.btn-grad {background-image: linear-gradient(to right, #0575E6 0%, #021B79  51%, #0575E6  100%)}
+.btn-grad {
+   margin: 10px;
+   padding: 15px 45px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;
+   border:none;            
+   border-radius: 10px;
+   display: block;
+ }
+ .btn-grad:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+ 
+.btn-grad3 {background-image: linear-gradient(to right, #0575E6 0%, #021B79  51%, #0575E6  100%)}
+.btn-grad3 {
+   margin: 10px;
+   padding: 15px 45px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;
+   border:none;            
+   border-radius: 40px;
+   display: block;
+ }
+ .btn-grad3:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+ 
+ .btn-grad2 {background-image: linear-gradient(to right, #4CB8C4 0%, #3CD3AD  51%, #4CB8C4  100%)}
+ .btn-grad2 {
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    border:none;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .btn-grad2:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .uplo{
+    margin-left:10%;
+  }
+ 
+
+
+  .box{
+      width: 100%;
+      height: 100%;
+      margin:20fr;
+  }
+
+ .cajaFormulario{
+     height:auto;
+     width: auto;
+     background-color:var(--fondo-cards) ;
+     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+     color: white;
+     border-radius:35px;
+     border: none;
+ }
+ .infoRegistro{
+     margin-top: 60px;
+     margin-left:35px;
+     color: white;
+     font-family: 'Roboto', sans-serif;
+ }
+ .login-text{
+    color: white;
+    font-family:'Roboto regular', sans-serif;
+ }
+ .caja-login{
+     width: auto;
+     height:900px;
+ }
+ .espacio{
+     width:auto;
+     height:200px;
+ }
+ .espacio1{
+     height:150px;
+ }
+ 
+ .btn-log {background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%)}
+ .btn-log {
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    border-radius: 40px;
+    display: block;
+  }
+
+  .btn-log:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+  
+
+  .btn-regi {background-image: linear-gradient(to right, #00c6ff 0%, #0072ff  51%, #00c6ff  100%)}
+  .btn-regi {
+     margin: 10px;
+     padding: 15px 45px;
+     text-align: center;
+     text-transform: uppercase;
+     transition: 0.5s;
+     background-size: 200% auto;
+     color: white;            
+     border-radius: 40px;
+     border: none;
+     display: block;
+   }
+
+   .btn-regi:hover {
+     background-position: right center; /* change the direction of the change here */
+     color: #fff;
+     text-decoration: none;
+   }
+  .errors{
+      color:#F2274D ;
+      font-family:var(--fuenteSecundaria);
+      width:auto;
+      height:auto;
+      display:flex;
+      justify-content:flex-start;
+
+  }
+  
+
+ 
+
+

@@ -1,0 +1,94 @@
+:root{
+    --fondo-cards:#0368C0;
+    --fondo-activo:#124C95;
+}
+
+.side-menu{
+    position:fixed;
+    background:var(--fondo-cards);
+    width: 260px;
+    height:100%;
+    box-sizing: border-box;
+    padding: 30px 20px;
+    color: white;
+    font-family:'Roboto regular', sans-serif;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+}
+.links{
+    
+    color: white;
+    font-family:'Roboto regular', sans-serif;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 15px;
+}
+.links:hover{
+    color: white;
+    background-color:var(--fondo-activo);
+    width:280px;
+    transition:0.8s;
+}
+.links:active{
+    color: white;
+    background-color:var(--fondo-activo);
+}
+.icons{
+    font-size: 38px;
+    color: white;
+    text-decoration: none;
+}
+.icons1{
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+.btn-salir {background-image: linear-gradient(to right, #EB3349 0%, #F45C43  51%, #EB3349  100%)}
+.btn-salir {
+   margin-right: 10px;
+   text-align: center;
+   padding: 8px 20px;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   border-radius: 10px;
+   border: none;
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+   font-size:19px;
+ }
+ .btn-salir:hover {
+   background-position: right center; /* change the direction of the change here */
+   color: #fff;
+   text-decoration: none;
+ }
+ .mainStyle{
+     padding-left: 300px;
+     height: 100%;
+ }
+ .seccion{
+    font-family: 'Poppins', sans-serif;
+    font-size:45px;
+    text-transform: uppercase;
+ }
+ .avatarPerfil{
+     width:70px;
+     height:70px;
+     border-radius:40px;
+     background-color:#1c34d6;
+ }
+ .avatarFoto{
+     width:70px;
+     height: 70px;
+     border-radius:40px;
+ }
+ .nombreUsuario{
+     color: white;
+     font-family: 'Roboto regular', sans-serif;
+     font-size:17px;
+ }
+
+
+
