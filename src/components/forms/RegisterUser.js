@@ -4,11 +4,34 @@ import { Form } from "react-bootstrap";
 import { Col, Container, Row } from "react-bootstrap";
 import axios from "../../shared/plugins/Axios";
 import * as Yup from "yup";
+import Alert, {
+  msjConfirmacion,
+  msjError,
+  msjExito,
+  titleConfirmacion,
+  titleError,
+  titleExito,
+} from "../../shared/plugins/Alert";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterUser = () => {
+  const navigate = useNavigate();
+
   const dataProyectoSchema = Yup.object().shape({
-    name: Yup.string().required("por favor ingresa un nombre"),
-    description: Yup.string().required("por favor ingresa una descripcion"),
+    name: Yup.string().required("campo obligatorio"),
+    lastname: Yup.string().required("campo obligatorio"),
+    motherslastname: Yup.string().required("campo obligatorio"),
+    username: Yup.string()
+      .email("correo invalido")
+      .required("campo obligatorio"),
+    confirmUser: Yup.string()
+      .email()
+      .required("campo obligatorio")
+      .oneOf([Yup.ref("username"), null], "Los correos no coinciden"),
+    password: Yup.string().required("campo obligatorio"),
+    confirmPass: Yup.string()
+      .required()
+      .oneOf([Yup.ref("password"), null], "las contraseñas no coinciden"),
   });
   return (
     <>
@@ -18,26 +41,78 @@ export const RegisterUser = () => {
           lastname: "",
           motherslastname: "",
           username: "",
+          confirmUser: "",
           password: "",
+          confirmPass: "",
         }}
         onSubmit={(Valores, { resetForm }) => {
-          const { name, description } = Valores;
-          const saveProject = async (name, description) => {
-            await axios({
-              url: "/proyectos/",
-              method: "POST",
-              data: { name: name, description: description },
-            })
-              .then((response) => {
-                const proyect = { ...response.data.data };
-                console.log(proyect);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+          const { name, lastname, motherslastname, username, password } =
+            Valores;
+          const saveProject = (
+            name,
+            lastname,
+            motherslastname,
+            username,
+            password
+          ) => {
+            Alert.fire({
+              title: "Registrar Nuevo Proyecto",
+              text: "¿Estas seguro de guardar los cambios?",
+              icon: "warning",
+              confirmButtonText: "Aceptar",
+              confirmButtonColor: "",
+              showCancelButton: true,
+              cancelButtonText: "Cancelar",
+              confirmButtonColor: "",
+              reverseButtons: true,
+              backdrop: true,
+              showLoaderOnConfirm: true,
+              allowOutsideClick: !Alert.isLoading,
+              preConfirm: () => {
+                return axios({
+                  url: "/user/",
+                  method: "POST",
+                  data: {
+                    username: username,
+                    password: password,
+                    person: {
+                      name: name,
+                      lastname: lastname,
+                      motherslastname: motherslastname,
+                    },
+                  },
+                })
+                  .then((response) => {
+                    const user = { ...response.data.data };
+                    if (!response.error) {
+                      const {
+                        data: { data },
+                      } = response;
+                      console.log(data);
+                      Alert.fire({
+                        title: titleExito,
+                        text: msjExito,
+                        icon: "success",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "",
+                      });
+                      return navigate("/panelUsuarios");
+                    }
+                  })
+                  .catch((error) => {
+                    Alert.fire({
+                      title: "Ah Ocurrido un error",
+                      text: "error al procesar su solicitud intentelo mas tarde",
+                      icon: "error",
+                      confirmButtonText: "Aceptar",
+                      confirmButtonColor: "",
+                    });
+                  });
+              },
+            });
           };
 
-          saveProject(name, description);
+          saveProject(name, lastname, motherslastname, username, password);
         }}
         validationSchema={dataProyectoSchema}
       >
@@ -58,7 +133,7 @@ export const RegisterUser = () => {
                 </Form.Label>
                 <Form.Control
                   type="text"
-                  style={{ width: "50%", borderRadius: 35, border: "none" }}
+                  style={{ width: "65%", borderRadius: 35, border: "none" }}
                   name="name"
                   id="name"
                   value={values.name}
@@ -73,46 +148,86 @@ export const RegisterUser = () => {
               </Form.Group>
             </Row>
             <Row className="mt-3">
-              <Form.Group className="d-flex flex-column">
+              <Form.Group as={Col} className="d-flex flex-column">
                 <Form.Label className="text-start" style={{ color: "white" }}>
-                  Descripcion del Proyecto
+                  Apellido Paterno
                 </Form.Label>
                 <Form.Control
                   type="text"
-                  style={{ width: "50%", borderRadius: 35, border: "none" }}
-                  name="description"
-                  id="description"
-                  value={values.description}
+                  style={{ width: "100%", borderRadius: 35, border: "none" }}
+                  name="lastname"
+                  id="lastname"
+                  value={values.lastname}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
-                {touched.description && errors.description && (
+                {touched.lastname && errors.lastname && (
                   <div className="errors">
-                    <p>{errors.description}</p>
+                    <p>{errors.lastname}</p>
                   </div>
                 )}
               </Form.Group>
+              <Form.Group as={Col} className="d-flex flex-column">
+                <Form.Label className="text-start" style={{ color: "white" }}>
+                  Apellido Materno
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  style={{ width: "100%", borderRadius: 35, border: "none" }}
+                  name="motherslastname"
+                  id="motherslastname"
+                  value={values.motherslastname}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {touched.motherslastname && errors.motherslastname && (
+                  <div className="errors">
+                    <p>{errors.motherslastname}</p>
+                  </div>
+                )}
+              </Form.Group>
+              <Col></Col>
             </Row>
             <Row>
-              <Form.Group className="d-flex flex-column">
+              <Form.Group as={Col} className="d-flex flex-column">
                 <Form.Label className="text-start" style={{ color: "white" }}>
                   Correo
                 </Form.Label>
                 <Form.Control
                   type="text"
-                  style={{ width: "50%", borderRadius: 35, border: "none" }}
-                  name="name"
-                  id="name"
-                  value={values.name}
+                  style={{ width: "100%", borderRadius: 35, border: "none" }}
+                  name="username"
+                  id="username"
+                  value={values.username}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
-                {touched.name && errors.name && (
+                {touched.username && errors.username && (
                   <div className="errors">
-                    <p>{errors.name}</p>
+                    <p>{errors.username}</p>
                   </div>
                 )}
               </Form.Group>
+              <Form.Group as={Col} className="d-flex flex-column">
+                <Form.Label className="text-start" style={{ color: "white" }}>
+                  Confirmar Correo
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  style={{ width: "100%", borderRadius: 35, border: "none" }}
+                  name="confirmUser"
+                  id="confirmUser"
+                  value={values.confirmUser}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {touched.confirmUser && errors.confirmUser && (
+                  <div className="errors">
+                    <p>{errors.confirmUser}</p>
+                  </div>
+                )}
+              </Form.Group>
+              <Col></Col>
             </Row>
             <Row>
               <Form.Group as={Col} className="d-flex flex-column">
@@ -120,17 +235,17 @@ export const RegisterUser = () => {
                   Contraseña
                 </Form.Label>
                 <Form.Control
-                  type="text"
+                  type="password"
                   style={{ width: "100%", borderRadius: 35, border: "none" }}
-                  name="name"
-                  id="name"
-                  value={values.name}
+                  name="password"
+                  id="password"
+                  value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
-                {touched.name && errors.name && (
+                {touched.password && errors.password && (
                   <div className="errors">
-                    <p>{errors.name}</p>
+                    <p>{errors.password}</p>
                   </div>
                 )}
               </Form.Group>
@@ -139,17 +254,17 @@ export const RegisterUser = () => {
                   Confirmar Contraseña
                 </Form.Label>
                 <Form.Control
-                  type="text"
+                  type="password"
                   style={{ width: "100%", borderRadius: 35, border: "none" }}
-                  name="name"
-                  id="name"
-                  value={values.name}
+                  name="confirmPass"
+                  id="confirmPass"
+                  value={values.confirmPass}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
-                {touched.name && errors.name && (
+                {touched.confirmPass && errors.confirmPass && (
                   <div className="errors">
-                    <p>{errors.name}</p>
+                    <p>{errors.confirmPass}</p>
                   </div>
                 )}
               </Form.Group>

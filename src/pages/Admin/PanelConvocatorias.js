@@ -30,21 +30,20 @@ export const PanelConvocatorias = () => {
   
   return (
     <>
-    <SideBar/>
-      <CabezeraAdmin 
-      tituloSeccion="Convocatorias"
-      urlProfile="https://cdsfilesbucket.s3.us-east-2.amazonaws.com/3c4564a2-3d24-499d-a44d-e7270d1668f2.jpg."
-      firstName={nombre}
-      lastName={apellido}
+      <SideBar />
+      <CabezeraAdmin
+        tituloSeccion="Convocatorias"
+        urlProfile="https://cdsfilesbucket.s3.us-east-2.amazonaws.com/3c4564a2-3d24-499d-a44d-e7270d1668f2.jpg."
+        firstName={nombre}
+        lastName={apellido}
       />
       <CabezeraConvo
-      tituCard1="Historial"
-      tituInfo="Aspirantes"
-      tituInfo2="Becarios"
+        tituCard1="Agregar"
+        tituInfo="Aspirantes"
+        tituInfo2="Becarios"
       />
 
-      <ContenedorConvocatorias/>
-
-      </>
-  )
+      <ContenedorConvocatorias />
+    </>
+  );
 }

@@ -5,8 +5,18 @@ import { Form } from "react-bootstrap";
 import { Col, Container, Row } from "react-bootstrap";
 import "../../assets/css/PublicStyles.css";
 import axios from "../../shared/plugins/Axios";
+import Alert, {
+  msjConfirmacion,
+  msjError,
+  msjExito,
+  titleConfirmacion,
+  titleError,
+  titleExito,
+} from "../../shared/plugins/Alert";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterProyect = () => {
+  const navigate = useNavigate();
   const dataProyectoSchema = Yup.object().shape({
     name: Yup.string().required("por favor ingresa un nombre"),
     description: Yup.string().required("por favor ingresa una descripcion"),
@@ -20,19 +30,56 @@ export const RegisterProyect = () => {
         }}
         onSubmit={(Valores, { resetForm }) => {
           const { name, description } = Valores;
-          const saveProject = async (name, description) => {
-            await axios({
-              url: "/proyectos/",
-              method: "POST",
-              data: { name: name, description: description },
-            })
-              .then((response) => {
-                const proyect = { ...response.data.data };
-                console.log(proyect);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+          const saveProject = (name, description) => {
+            Alert.fire({
+              title: "Registrar Nuevo Usuario",
+              text: "¿Estas seguro de guardar los cambios?",
+              icon: "warning",
+              confirmButtonText: "Aceptar",
+              confirmButtonColor: "",
+              showCancelButton: true,
+              cancelButtonText: "Cancelar",
+              confirmButtonColor: "",
+              reverseButtons: true,
+              backdrop: true,
+              showLoaderOnConfirm: true,
+              allowOutsideClick: !Alert.isLoading,
+              preConfirm: () => {
+                return axios({
+                  url: "/proyectos/",
+                  method: "POST",
+                  data: { name: name, description: description },
+                })
+                  .then((response) => {
+                    const proyect = { ...response.data.data };
+                    console.log(proyect);
+                    if (!response.error) {
+                      const {
+                        data: { data },
+                      } = response;
+                      console.log(data);
+                      Alert.fire({
+                        title: titleExito,
+                        text: msjExito,
+                        icon: "success",
+                        confirmButtonText: "Aceptar",
+                        confirmButtonColor: "",
+                      });
+                      return navigate("/panelProyectos");
+                    }
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    Alert.fire({
+                      title: "Ah Ocurrido un error",
+                      text: "error al procesar su solicitud intentelo mas tarde",
+                      icon: "error",
+                      confirmButtonText: "Aceptar",
+                      confirmButtonColor: "",
+                    });
+                  });
+              },
+            });
           };
 
           saveProject(name, description);

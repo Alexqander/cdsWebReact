@@ -46,15 +46,19 @@ export const ContenedorConvocatorias = () => {
         <Container fluid className="px-4">
           <Row>
             {convocatorias.map((conv, i) => {
-                return(
-              <Col key={i} md={12}>
-                <CardConvocatoria
-                  periodo={conv.description}
-                  description={`Fecha de Finalizacion ${conv.endDate}`}
-                  navegacion={handleClick=>navigate(`/detalleConvocatoria/${conv.id}`)}
-                  aspirantes={aspirantes.length}
-                />
-              </Col>)
+                return (
+                  <Col key={i} md={12}>
+                    <CardConvocatoria
+                      periodo={conv.description}
+                      description={`Fecha de Finalizacion ${conv.endDate}`}
+                      navegacion={(handleClick) =>
+                        navigate(`/detalleConvocatoria/${conv.id}`)
+                      }
+                      aspirantes={aspirantes.length}
+                      estado={conv.status.id}
+                    />
+                  </Col>
+                );
             })}
           </Row>
         </Container>

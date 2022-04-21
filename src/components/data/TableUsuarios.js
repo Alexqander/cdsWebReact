@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "../../shared/plugins/Axios";
-import { ButtonActivar } from "../buttons/ButtonActivar";
 import { ButtonPdf } from "../buttons/ButtonPdf";
 
 export const TableUsuarios = ({ title }) => {
